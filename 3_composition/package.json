@@ -1,0 +1,15 @@
+{
+  "name": "subgraph-composition",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen --ipfs ${IPFS_URL:-http://localhost:5001/}",
+    "build": "graph build",
+    "create-local": "graph create --node ${GRAPH_NODE_URL:-http://localhost:8020/} subgraph-composition",
+    "remove-local": "graph remove --node ${GRAPH_NODE_URL:-http://localhost:8020/} subgraph-composition",
+    "deploy-local": "graph deploy --node ${GRAPH_NODE_URL:-http://localhost:8020/} --ipfs ${IPFS_URL:-http://localhost:5001/} subgraph-composition"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "0.95.0",
+    "@graphprotocol/graph-ts": "0.38.1"
+  }
+}

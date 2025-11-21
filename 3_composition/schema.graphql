@@ -1,0 +1,5 @@
+type BlockValue @entity(immutable: true) {
+    id: ID!
+    blockNumber: BigInt!
+    totalValue: BigInt!
+}

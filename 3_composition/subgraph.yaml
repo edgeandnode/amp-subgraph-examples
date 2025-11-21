@@ -1,0 +1,19 @@
+specVersion: 1.4.0
+schema:
+  file: ./schema.graphql
+dataSources:
+  - name: BlockValue
+    kind: subgraph
+    network: mainnet
+    source:
+      address: QmUj5BbG2JT1yxzs7ACp1efTymsbucG3wuiVJQzSPxW3rT
+      startBlock: 20000000
+    mapping:
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities: []
+      abis: []
+      handlers:
+        - entity: BlockValue
+          handler: handleBlockValue

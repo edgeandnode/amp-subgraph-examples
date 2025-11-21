@@ -1,0 +1,20 @@
+type BlockValue @entity(timeseries: true) {
+    id: Int8!
+    timestamp: Timestamp!
+    blockNumber: BigInt!
+    totalValue: BigInt!
+}
+
+type Stats @aggregation(intervals: ["hour", "day"], source: "BlockValue") {
+    id: Int8!
+    timestamp: Timestamp!
+    blocksCount: Int! @aggregate(fn: "count")
+    minBlockValue: BigInt! @aggregate(fn: "min", arg: "totalValue")
+    maxBlockValue: BigInt! @aggregate(fn: "max", arg: "totalValue")
+    totalValue: BigInt! @aggregate(fn: "sum", arg: "totalValue")
+    firstBlockValue: BigInt! @aggregate(fn: "first", arg: "totalValue")
+    lastBlockValue: BigInt! @aggregate(fn: "last", arg: "totalValue")
+    allTimeTotalValue: BigInt! @aggregate(fn: "sum", arg: "totalValue", cumulative: true)
+    allTimeMinBlockValue: BigInt! @aggregate(fn: "min", arg: "totalValue", cumulative: true)
+    allTimeMaxBlockValue: BigInt! @aggregate(fn: "max", arg: "totalValue", cumulative: true)
+}

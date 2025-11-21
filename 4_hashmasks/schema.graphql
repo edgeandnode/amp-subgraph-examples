@@ -1,0 +1,35 @@
+type Owner @entity {
+    id: Bytes!
+}
+
+type Token @entity {
+    id: ID!
+    owner: Owner!
+    transfers: [Transfer!]! @derivedFrom(field: "token")
+}
+
+type Transfer @entity(timeseries: true) {
+    id: Int8!
+    timestamp: Timestamp!
+    token: Token!
+    from: Owner!
+    to: Owner!
+    blockNumber: BigInt!
+    blockHash: Bytes!
+    transactionHash: Bytes!
+}
+
+type OwnerData @entity(timeseries: true) {
+    id: Int8!
+    timestamp: Timestamp!
+    owner: Owner!
+    balance: Int!
+}
+
+type OwnerBalance
+    @aggregation(intervals: ["hour", "day"], source: "OwnerData") {
+    id: Int8!
+    timestamp: Timestamp!
+    owner: Owner!
+    balance: Int! @aggregate(fn: "sum", arg: "balance", cumulative: true)
+}
